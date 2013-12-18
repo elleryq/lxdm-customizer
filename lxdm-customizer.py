@@ -42,6 +42,7 @@ class MainWindow(QMainWindow):
         fn, t = result
         if fn:
             self.ui.editBackground.setText(fn)
+            self._setGraphicsViewImage(fn)
 
     def bindModels(self):
         try:
@@ -69,9 +70,12 @@ class MainWindow(QMainWindow):
             pass
 
         try:
-            self.ui.editBackground.setText(self.config.get('display', 'bg'))
-        except:
-            pass
+            background = self.config.get('display', 'bg')
+            self.ui.editBackground.setText(background)
+            if os.path.exists(background):
+                self._setGraphicsViewImage(background)
+        except Exception, ex:
+            print(ex)
 
         greeters = findGreeters()
         self.ui.comboGreeter.setModel(self._createStandardItemModel(greeters))
@@ -96,6 +100,13 @@ class MainWindow(QMainWindow):
                 0, self.config.get('display', 'theme')))
         except Exception, ex:
             print(ex)
+
+    def _setGraphicsViewImage(self, imagePath):
+        scene = QGraphicsScene(self.ui.graphicsView)
+        item = scene.addPixmap(QPixmap(imagePath))
+        self.ui.graphicsView.setScene(scene)
+        #self.ui.graphicsView.fitInView(item)
+        self.ui.graphicsView.show()
 
     def _findCurrentIndex(self, data, x, value):
         for i, t in enumerate(data):
