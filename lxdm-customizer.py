@@ -42,9 +42,36 @@ class MainWindow(QMainWindow):
             self.ui.checkShowLanguageSelector.setCheckState(Qt.CheckState.Checked)
         if self.config.getint('display', 'keyboard') == 1:
             self.ui.checkShowKeyboard.setCheckState(Qt.CheckState.Checked)
-        self.ui.comboGreeter.setModel(self._createStandardItemModel(findGreeters()))
-        self.ui.comboGtkTheme.setModel(self._createStandardItemModel(findGtkThemes()))
-        self.ui.comboTheme.setModel(self._createStandardItemModel(findLXDMThemes()))
+
+        greeters = findGreeters()
+        self.ui.comboGreeter.setModel(self._createStandardItemModel(greeters))
+        try:
+            self.ui.comboGreeter.setCurrentIndex(self._findCurrentIndex(greeters,
+                1, self.config.get('base', 'greeter')))
+        except Exception, ex:
+            print(ex)
+
+        gtkThemes = findGtkThemes()
+        self.ui.comboGtkTheme.setModel(self._createStandardItemModel(gtkThemes))
+        try:
+            self.ui.comboGtkTheme.setCurrentIndex(self._findCurrentIndex(gtkThemes,
+                0, self.config.get('display', 'gtk_theme')))
+        except Exception, ex:
+            print(ex)
+
+        themes = findLXDMThemes()
+        self.ui.comboTheme.setModel(self._createStandardItemModel(themes))
+        try:
+            self.ui.comboTheme.setCurrentIndex(self._findCurrentIndex(themes,
+                0, self.config.get('display', 'theme')))
+        except Exception, ex:
+            print(ex)
+
+    def _findCurrentIndex(self, data, x, value):
+        for i, t in enumerate(data):
+            if t[x]==value:
+                return i
+        return -1
 
     def _createStandardItemModel(self, data):
         model = QStandardItemModel(len(data), 1)
