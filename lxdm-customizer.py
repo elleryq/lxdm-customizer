@@ -6,9 +6,11 @@ import sys
 import os
 try:
     from PySide.QtGui import *
+    from PySide.QtCore import *
 except ImportError:
     print("You need to install PySide.")
 from ui_customizer import Ui_MainWindow
+from lxdm_customizer_lib.lxdmconfig import LXDMConfig
 
 
 class MainWindow(QMainWindow):
@@ -16,6 +18,10 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+        self.config = LXDMConfig()
+
+        self.bindModels()
         self.bindEvents()
 
     def bindEvents(self):
@@ -25,8 +31,16 @@ class MainWindow(QMainWindow):
     def showAbout(self):
         QMessageBox.about(self, "LXDM Customizer",
                           "LXDM Customizer is a tool for customizer LXDM.")
-        pass
 
+    def bindModels(self):
+        if self.config.getint('base', 'numlock')==1:
+            self.ui.checkNumlock.setCheckState(Qt.CheckState.Checked)
+        if self.config.getint('display', 'bottom_pane')==1:
+            self.ui.checkShowBottomPanel.setCheckState(Qt.CheckState.Checked)
+        if self.config.getint('display', 'lang')==1:
+            self.ui.checkShowLanguageSelector.setCheckState(Qt.CheckState.Checked)
+        if self.config.getint('display', 'keyboard')==1:
+            self.ui.checkShowKeyboard.setCheckState(Qt.CheckState.Checked)
 
 def main():
     app = QApplication(sys.argv)
