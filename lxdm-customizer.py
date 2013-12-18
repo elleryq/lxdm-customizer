@@ -20,6 +20,12 @@ class MainWindow(QMainWindow):
 
     def bindEvents(self):
         self.ui.actionE_xit.triggered.connect(self.close)
+        self.ui.action_About.triggered.connect(self.showAbout)
+
+    def showAbout(self):
+        QMessageBox.about(self, "LXDM Customizer",
+                          "LXDM Customizer is a tool for customizer LXDM.")
+        pass
 
 
 def main():
