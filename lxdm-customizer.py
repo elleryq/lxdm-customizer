@@ -28,20 +28,50 @@ class MainWindow(QMainWindow):
     def bindEvents(self):
         self.ui.actionE_xit.triggered.connect(self.close)
         self.ui.action_About.triggered.connect(self.showAbout)
+        self.ui.buttonBrowse.clicked.connect(self.browseBackground)
 
     def showAbout(self):
         QMessageBox.about(self, "LXDM Customizer",
                           "LXDM Customizer is a tool for customizer LXDM.")
 
+    def browseBackground(self):
+        result = QFileDialog.getOpenFileName(self,
+           "Select image file as background",
+           "",
+           "Image files (*.png *.jpg *.jpeg)")
+        fn, t = result
+        if fn:
+            self.ui.editBackground.setText(fn)
+
     def bindModels(self):
-        if self.config.getint('base', 'numlock') == 1:
-            self.ui.checkNumlock.setCheckState(Qt.CheckState.Checked)
-        if self.config.getint('display', 'bottom_pane') == 1:
-            self.ui.checkShowBottomPanel.setCheckState(Qt.CheckState.Checked)
-        if self.config.getint('display', 'lang') == 1:
-            self.ui.checkShowLanguageSelector.setCheckState(Qt.CheckState.Checked)
-        if self.config.getint('display', 'keyboard') == 1:
-            self.ui.checkShowKeyboard.setCheckState(Qt.CheckState.Checked)
+        try:
+            if self.config.getint('base', 'numlock') == 1:
+                self.ui.checkNumlock.setCheckState(Qt.CheckState.Checked)
+        except:
+            pass
+
+        try:
+            if self.config.getint('display', 'bottom_pane') == 1:
+                self.ui.checkShowBottomPanel.setCheckState(Qt.CheckState.Checked)
+        except:
+            pass
+
+        try:
+            if self.config.getint('display', 'lang') == 1:
+                self.ui.checkShowLanguageSelector.setCheckState(Qt.CheckState.Checked)
+        except:
+            pass
+
+        try:
+            if self.config.getint('display', 'keyboard') == 1:
+                self.ui.checkShowKeyboard.setCheckState(Qt.CheckState.Checked)
+        except:
+            pass
+
+        try:
+            self.ui.editBackground.setText(self.config.get('display', 'bg'))
+        except:
+            pass
 
         greeters = findGreeters()
         self.ui.comboGreeter.setModel(self._createStandardItemModel(greeters))
