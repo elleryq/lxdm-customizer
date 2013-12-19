@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import os
+import re
 
 X11_DEFAULT_DISPLAY_MANAGER = "/etc/X11/default-display-manager"
 

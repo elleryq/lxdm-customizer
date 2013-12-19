@@ -1,8 +1,6 @@
 import os
-import sys
 from ConfigParser import SafeConfigParser
 import tempfile
-import re
 from util import sudo
 
 
