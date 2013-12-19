@@ -12,6 +12,7 @@ except ImportError:
 from ui_customizer import Ui_MainWindow
 from lxdm_customizer_lib.lxdmconfig import LXDMConfig
 from lxdm_customizer_lib.source import *
+from lxdm_customizer_lib.util import isDisplayManagerLXDM
 
 
 class MainWindow(QMainWindow):
@@ -20,6 +21,10 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        if not isDisplayManagerLXDM():
+            QMessageBox.information(None, "LXDM-customizer",
+            "LXDM is not installed.  LXDM-customizer won't work.")
+            sys.exit(-1)
         self.config = LXDMConfig()
 
         self.bindModels()
