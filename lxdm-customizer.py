@@ -34,15 +34,57 @@ class MainWindow(QMainWindow):
         self.ui.actionE_xit.triggered.connect(self.close)
         self.ui.action_About.triggered.connect(self.showAbout)
         self.ui.buttonBrowse.clicked.connect(self.browseBackground)
+        self.ui.action_Save.triggered.connect(self.save)
 
     def showAbout(self):
         QMessageBox.about(self, "LXDM Customizer",
                           "LXDM Customizer is a tool for customizer LXDM.")
 
+    def save(self):
+        if self.ui.checkNumlock.checkState() == Qt.CheckState.Checked:
+            self.config.set('base', 'numlock', "1")
+        else:
+            self.config.set('base', 'numlock', "0")
+
+        if self.ui.checkShowBottomPanel.checkState() == Qt.CheckState.Checked:
+            self.config.set('display', 'bottom_pane', "1")
+        else:
+            self.config.set('display', 'bottom_pane', "0")
+
+        if self.ui.checkShowLanguageSelector.checkState() == Qt.CheckState.Checked:
+            self.config.set('display', 'lang', '1')
+        else:
+            self.config.set('display', 'lang', '0')
+
+        if self.ui.checkShowKeyboard.checkState() == Qt.CheckState.Checked:
+            self.config.set('display', 'keyboard', '1')
+        else:
+            self.config.set('display', 'keyboard', '0')
+
+        greeters = findGreeters()
+        self.config.set('base', 'greeter',
+                greeters[self.ui.comboGreeter.currentIndex()][1])
+
+        gtkThemes = findGtkThemes()
+        self.config.set('display', 'gtk_theme',
+                gtkThemes[self.ui.comboGtkTheme.currentIndex()][0])
+
+        themes = findLXDMThemes()
+        self.config.set('display', 'theme',
+                themes[self.ui.comboTheme.currentIndex()][0])
+
+        if self.ui.editBackground.text():
+            self.config.set('display', 'bg',
+                    self.ui.editBackground.text())
+
+        # saveAs() is for testing.
+        # self.config.saveAs("./lxdm.conf")
+        self.config.save()
+
     def browseBackground(self):
         result = QFileDialog.getOpenFileName(self,
            "Select image file as background",
-           "",
+           "/usr/share/backgrounds",
            "Image files (*.png *.jpg *.jpeg)")
         fn, t = result
         if fn:

@@ -28,6 +28,11 @@ class LXDMConfig(object):
         self.doCopy(outf.name)
         os.unlink(outf.name)
 
+    def saveAs(self, outfile):
+        outf = open(outfile, "wt")
+        self.parser.write(outf)
+        outf.close()
+
     def doCopy(self, tmpfile):
         """
         refer from http://python.org.ar/Xdg-Sudo
@@ -38,6 +43,8 @@ class LXDMConfig(object):
             raise Exception(" ERROR: Do not run as root...")
 
         cmd = "cp {0} {1}".format(tmpfile, LXDM_CONF)
+
+        msg = "Override system configuration."
         # Test which tools exist
         kdesudo = os.path.exists('/usr/bin/kdesudo')
         gtksudo = os.path.exists('/usr/bin/gksudo')
@@ -59,12 +66,11 @@ class LXDMConfig(object):
             # really run it
             if useGnome:
                 sudo = "gksudo "
+                os.system(sudo + cmd + " -m '{0}'".format(msg))
             else:
                 sudo = "kdesudo "
-            # Run the actual program now
-            os.system(sudo + cmd)
+                os.system(sudo + cmd + " -d --comment '{0}'".format(msg))
         else:
             # we dont have gksudo or kdesudo, OMFG!
             sudocmd = "xterm -e \"echo 'Neither \\\"gksudo\\\" nor \\\"kdesudo\\\" have been found on your machine. Thus, \\\"sudo\\\" is being used. Please leave this window open until the program has finished. Your are asked for your password below.'; sudo "+cmd+"; sleep 1\""
             os.system(sudocmd)
-
