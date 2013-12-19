@@ -105,7 +105,7 @@ class MainWindow(QMainWindow):
         scene = QGraphicsScene(self.ui.graphicsView)
         item = scene.addPixmap(QPixmap(imagePath))
         self.ui.graphicsView.setScene(scene)
-        #self.ui.graphicsView.fitInView(item)
+        self.ui.graphicsView.fitInView(item, Qt.KeepAspectRatio)
         self.ui.graphicsView.show()
 
     def _findCurrentIndex(self, data, x, value):
