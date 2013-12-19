@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'customizer.ui'
 #
-# Created: Wed Dec 18 18:35:33 2013
+# Created: Thu Dec 19 18:54:43 2013
 #      by: pyside-uic 0.2.13 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -69,12 +69,14 @@ class Ui_MainWindow(object):
         self.label_4.setObjectName("label_4")
         self.formLayout_2.setWidget(5, QtGui.QFormLayout.LabelRole, self.label_4)
         self.editBackground = QtGui.QLineEdit(self.tab_2)
+        self.editBackground.setEnabled(False)
         self.editBackground.setObjectName("editBackground")
         self.formLayout_2.setWidget(5, QtGui.QFormLayout.FieldRole, self.editBackground)
         self.buttonBrowse = QtGui.QPushButton(self.tab_2)
         self.buttonBrowse.setObjectName("buttonBrowse")
         self.formLayout_2.setWidget(6, QtGui.QFormLayout.FieldRole, self.buttonBrowse)
         self.graphicsView = QtGui.QGraphicsView(self.tab_2)
+        self.graphicsView.setMinimumSize(QtCore.QSize(457, 192))
         self.graphicsView.setObjectName("graphicsView")
         self.formLayout_2.setWidget(7, QtGui.QFormLayout.FieldRole, self.graphicsView)
         self.horizontalLayout.addLayout(self.formLayout_2)
@@ -110,7 +112,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
+        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "LXDM Customizer", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("MainWindow", "Greeter", None, QtGui.QApplication.UnicodeUTF8))
         self.checkNumlock.setText(QtGui.QApplication.translate("MainWindow", "Numlock", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QtGui.QApplication.translate("MainWindow", "Base", None, QtGui.QApplication.UnicodeUTF8))

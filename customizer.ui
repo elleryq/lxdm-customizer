@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>LXDM Customizer</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -110,7 +110,11 @@
            </widget>
           </item>
           <item row="5" column="1">
-           <widget class="QLineEdit" name="editBackground"/>
+           <widget class="QLineEdit" name="editBackground">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
           </item>
           <item row="6" column="1">
            <widget class="QPushButton" name="buttonBrowse">
@@ -120,7 +124,14 @@
            </widget>
           </item>
           <item row="7" column="1">
-           <widget class="QGraphicsView" name="graphicsView"/>
+           <widget class="QGraphicsView" name="graphicsView">
+            <property name="minimumSize">
+             <size>
+              <width>457</width>
+              <height>192</height>
+             </size>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>

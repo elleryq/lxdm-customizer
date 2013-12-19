@@ -90,6 +90,14 @@ class MainWindow(QMainWindow):
         if fn:
             self.ui.editBackground.setText(fn)
             self._setGraphicsViewImage(fn)
+    
+    def showEvent(self, event):
+        print("show")
+        super(MainWindow, self).showEvent(event)
+        print(self.ui.graphicsView.childrenRect())
+        print(self.ui.scene.sceneRect())
+        self.ui.graphicsView.fitInView(self.ui.bg,
+                Qt.KeepAspectRatio)
 
     def bindModels(self):
         try:
@@ -149,10 +157,10 @@ class MainWindow(QMainWindow):
             print(ex)
 
     def _setGraphicsViewImage(self, imagePath):
-        scene = QGraphicsScene(self.ui.graphicsView)
-        item = scene.addPixmap(QPixmap(imagePath))
-        self.ui.graphicsView.setScene(scene)
-        self.ui.graphicsView.fitInView(item, Qt.KeepAspectRatio)
+        self.ui.scene = QGraphicsScene(self.ui.graphicsView)
+        self.ui.bg = self.ui.scene.addPixmap(QPixmap(imagePath))
+        self.ui.graphicsView.setScene(self.ui.scene)
+        self.ui.graphicsView.fitInView(self.ui.bg, Qt.KeepAspectRatio)
         self.ui.graphicsView.show()
 
     def _findCurrentIndex(self, data, x, value):
