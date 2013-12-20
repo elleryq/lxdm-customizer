@@ -90,12 +90,10 @@ class MainWindow(QMainWindow):
             self.ui.editBackground.setText(fn)
             self._setGraphicsViewImage(fn)
 
-    def showEvent(self, event):
-        print("show")
-        super(MainWindow, self).showEvent(event)
-        print(self.ui.graphicsView.childrenRect())
-        print(self.ui.scene.sceneRect())
-        self.ui.graphicsView.fitInView(self.ui.bg,
+    def show(self):
+        super(MainWindow, self).show()
+        # Need to invoke fitInView here or the picture is small.
+        self.ui.graphicsView.fitInView(self.ui.graphicsView.geometry(),
                                        Qt.KeepAspectRatio)
 
     def bindModels(self):
