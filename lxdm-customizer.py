@@ -96,6 +96,17 @@ class MainWindow(QMainWindow):
         self.ui.graphicsView.fitInView(self.ui.graphicsView.geometry(),
                                        Qt.KeepAspectRatio)
 
+    def tryGetConfigInt(section, option):
+        try:
+            return self.config.getint(section, option)
+        except:
+            return None
+
+    def createModel(self):
+        model = QStandardItemModel(10, 1)
+        model.setItem(0, 0, QStandardItem(tryGetConfigInt('base', 'numlock')))
+        # TODO
+
     def bindModels(self):
         try:
             if self.config.getint('base', 'numlock') == 1:
