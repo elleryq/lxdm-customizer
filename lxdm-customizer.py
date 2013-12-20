@@ -100,12 +100,20 @@ class MainWindow(QMainWindow):
         try:
             return self.config.getint(section, option)
         except:
-            return None
+            return 0
 
     def createModel(self):
         model = QStandardItemModel(10, 1)
-        model.setItem(0, 0, QStandardItem(tryGetConfigInt('base', 'numlock')))
-        # TODO
+        model.setItem(0, 0,
+                      QStandardItem(tryGetConfigInt('base', 'numlock') == 1))
+        model.setItem(1, 0,
+                      QStandardItem(tryGetConfigInt('display', 
+                                                    'bottom_pane') == 1))
+        model.setItem(2, 0,
+                      QStandardItem(tryGetConfigInt('display', 'lang') == 1))
+        model.setItem(3, 0,
+                      QStandardItem(tryGetConfigInt('display',
+                                                    'keyboard') == 1))
 
     def bindModels(self):
         try:
