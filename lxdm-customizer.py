@@ -9,7 +9,7 @@ try:
     from PySide.QtCore import *
 except ImportError:
     print("You need to install PySide.")
-from ui_customizer import Ui_MainWindow
+from lxdm_customizer_lib.ui_customizer import Ui_MainWindow
 from lxdm_customizer_lib.lxdmconfig import LXDMConfig
 from lxdm_customizer_lib.source import *
 from lxdm_customizer_lib.util import isDisplayManagerLXDM
@@ -23,7 +23,7 @@ class MainWindow(QMainWindow):
 
         if not isDisplayManagerLXDM():
             QMessageBox.information(None, "LXDM-customizer",
-            "LXDM is not installed.  LXDM-customizer won't work.")
+                "LXDM is not installed.  LXDM-customizer won't work.")
             sys.exit(-1)
         self.config = LXDMConfig()
 
@@ -63,19 +63,18 @@ class MainWindow(QMainWindow):
 
         greeters = findGreeters()
         self.config.set('base', 'greeter',
-                greeters[self.ui.comboGreeter.currentIndex()][1])
+                        greeters[self.ui.comboGreeter.currentIndex()][1])
 
         gtkThemes = findGtkThemes()
         self.config.set('display', 'gtk_theme',
-                gtkThemes[self.ui.comboGtkTheme.currentIndex()][0])
+                        gtkThemes[self.ui.comboGtkTheme.currentIndex()][0])
 
         themes = findLXDMThemes()
         self.config.set('display', 'theme',
-                themes[self.ui.comboTheme.currentIndex()][0])
+                        themes[self.ui.comboTheme.currentIndex()][0])
 
         if self.ui.editBackground.text():
-            self.config.set('display', 'bg',
-                    self.ui.editBackground.text())
+            self.config.set('display', 'bg', self.ui.editBackground.text())
 
         # saveAs() is for testing.
         # self.config.saveAs("./lxdm.conf")
@@ -90,14 +89,14 @@ class MainWindow(QMainWindow):
         if fn:
             self.ui.editBackground.setText(fn)
             self._setGraphicsViewImage(fn)
-    
+
     def showEvent(self, event):
         print("show")
         super(MainWindow, self).showEvent(event)
         print(self.ui.graphicsView.childrenRect())
         print(self.ui.scene.sceneRect())
         self.ui.graphicsView.fitInView(self.ui.bg,
-                Qt.KeepAspectRatio)
+                                       Qt.KeepAspectRatio)
 
     def bindModels(self):
         try:
@@ -165,7 +164,7 @@ class MainWindow(QMainWindow):
 
     def _findCurrentIndex(self, data, x, value):
         for i, t in enumerate(data):
-            if t[x]==value:
+            if t[x] == value:
                 return i
         return -1
 
