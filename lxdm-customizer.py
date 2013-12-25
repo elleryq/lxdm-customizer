@@ -35,6 +35,22 @@ class MainWindow(QMainWindow):
         self.ui.action_About.triggered.connect(self.showAbout)
         self.ui.buttonBrowse.clicked.connect(self.browseBackground)
         self.ui.action_Save.triggered.connect(self.save)
+        
+        checkboxs = [self.ui.checkNumlock,
+                self.ui.checkShowBottomPanel,
+                self.ui.checkShowLanguageSelector,
+                self.ui.checkShowKeyboard]
+        for checkbox in checkboxs:
+            checkbox.stateChanged.connect(self.onCheckboxStateChanged)
+
+        comboboxs = [self.ui.comboGreeter,
+                self.ui.comboGtkTheme,
+                self.ui.comboTheme]
+        for combobox in comboboxs:
+            combobox.currentIndexChanged.connect(self.onComboboxChanged)
+
+        self.ui.editBackground.textChanged.connect(self.onLineEditChanged)
+        self.ui.action_Save.setEnabled(False)
 
     def showAbout(self):
         QMessageBox.about(self, "LXDM Customizer",
@@ -164,6 +180,24 @@ class MainWindow(QMainWindow):
                 0, self.config.get('display', 'theme')))
         except Exception, ex:
             print(ex)
+
+    def makeActionSaveEnabled(self):
+        self.action_Save.setEnabled(True)
+
+    def onCheckboxStateChanged(self, state):
+        print("New state={0}".format(state))
+        self.isDirty = True
+        self.makeActionSaveEnabled()
+
+    def onComboboxChanged(self, index):
+        print("New index={0}".format(index))
+        self.isDirty = True
+        self.makeActionSaveEnabled()
+
+    def onLineEditChanged(self, text):
+        print("New text={0}".format(text))
+        self.isDirty = True
+        self.makeActionSaveEnabled()
 
     def _setGraphicsViewImage(self, imagePath):
         self.ui.scene = QGraphicsScene(self.ui.graphicsView)
