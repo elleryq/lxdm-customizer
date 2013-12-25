@@ -108,35 +108,7 @@ class MainWindow(QMainWindow):
         except:
             return ""
 
-    def createModel(self):
-        model = QStandardItemModel(10, 1)
-        model.setItem(0, 0,
-                      QStandardItem(tryGetConfigInt('base', 'numlock') == 1))
-        model.setItem(1, 0,
-                      QStandardItem(tryGetConfigInt('display',
-                                                    'bottom_pane') == 1))
-        model.setItem(2, 0,
-                      QStandardItem(tryGetConfigInt('display', 'lang') == 1))
-        model.setItem(3, 0,
-                      QStandardItem(tryGetConfigInt('display',
-                                                    'keyboard') == 1))
-        model.setItem(4, 0,
-                      QStandardItem(tryGetConfigString('display', 'bg')))
-        model.setItem(5, 0,
-                      QStandardItem(tryGetConfigString('base', 'greeter')))
-        model.setItem(6, 0,
-                      QStandardItem(tryGetConfigString('display', 'gtk_theme')))
-        model.setItem(7, 0,
-                      QStandardItem(tryGetConfigString('display', 'theme')))
-        return model
-
     def bindModels(self):
-        #self.model = createModel()
-
-        #mapper = QDataWidgetMapper(self)
-        #mapper.setModel(self.model)
-        #mapper.addMapping(self.ui.editBackground, 4)
-
         try:
             if self.config.getint('base', 'numlock') == 1:
                 self.ui.checkNumlock.setCheckState(Qt.CheckState.Checked)
