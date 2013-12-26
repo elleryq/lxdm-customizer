@@ -31,10 +31,10 @@ class MainWindow(QMainWindow):
         self.bindEvents()
 
     def bindEvents(self):
-        self.ui.actionE_xit.triggered.connect(self.close)
+        self.ui.actionE_xit.triggered.connect(self.onClose)
         self.ui.action_About.triggered.connect(self.showAbout)
         self.ui.buttonBrowse.clicked.connect(self.browseBackground)
-        self.ui.action_Save.triggered.connect(self.save)
+        self.ui.action_Save.triggered.connect(self.onSave)
         
         checkboxs = [self.ui.checkNumlock,
                 self.ui.checkShowBottomPanel,
@@ -56,7 +56,7 @@ class MainWindow(QMainWindow):
         QMessageBox.about(self, "LXDM Customizer",
                           "LXDM Customizer is a tool for customizer LXDM.")
 
-    def save(self):
+    def onSave(self):
         if self.ui.checkNumlock.checkState() == Qt.CheckState.Checked:
             self.config.set('base', 'numlock', "1")
         else:
@@ -95,6 +95,7 @@ class MainWindow(QMainWindow):
         # saveAs() is for testing.
         # self.config.saveAs("./lxdm.conf")
         self.config.save()
+        self.isDirty = False
 
     def browseBackground(self):
         result = QFileDialog.getOpenFileName(self,
@@ -182,7 +183,7 @@ class MainWindow(QMainWindow):
             print(ex)
 
     def makeActionSaveEnabled(self):
-        self.action_Save.setEnabled(True)
+        self.ui.action_Save.setEnabled(True)
 
     def onCheckboxStateChanged(self, state):
         print("New state={0}".format(state))
@@ -198,6 +199,16 @@ class MainWindow(QMainWindow):
         print("New text={0}".format(text))
         self.isDirty = True
         self.makeActionSaveEnabled()
+
+    def onClose(self):
+        if self.isDirty:
+            button = QMessageBox.question(self, "LXDM-customizer",
+                "You had changed settings, are you sure to exit?",
+                QMessageBox.Yes | QMessageBox.No,
+                QMessageBox.NoButton)
+            if not button == QMessageBox.Yes:
+                return
+        self.close()
 
     def _setGraphicsViewImage(self, imagePath):
         self.ui.scene = QGraphicsScene(self.ui.graphicsView)
