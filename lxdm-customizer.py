@@ -113,74 +113,52 @@ class MainWindow(QMainWindow):
         self.ui.graphicsView.fitInView(self.ui.graphicsView.geometry(),
                                        Qt.KeepAspectRatio)
 
-    def tryGetConfigInt(section, option):
+    def tryGetConfigInt(self, section, option):
         try:
             return self.config.getint(section, option)
         except:
             return 0
 
-    def tryGetConfigString(section, option):
+    def tryGetConfigString(self, section, option):
         try:
             return self.config.get(section, option)
         except:
             return ""
 
     def bindModels(self):
-        try:
-            if self.config.getint('base', 'numlock') == 1:
-                self.ui.checkNumlock.setCheckState(Qt.CheckState.Checked)
-        except:
-            pass
+        self.ui.checkNumlock.setChecked(self.tryGetConfigInt('base',
+                'numlock') == 1)
+        self.ui.checkShowBottomPanel.setChecked(self.tryGetConfigInt('display',
+                'bottom_pane') == 1)
+        self.ui.checkShowLanguageSelector.setChecked(self.tryGetConfigInt('display',
+                'lang') == 1)
+        self.ui.checkShowKeyboard.setChecked(self.tryGetConfigInt('display',
+                'keyboard') == 1)
 
-        try:
-            if self.config.getint('display', 'bottom_pane') == 1:
-                self.ui.checkShowBottomPanel.setCheckState(Qt.CheckState.Checked)
-        except:
-            pass
-
-        try:
-            if self.config.getint('display', 'lang') == 1:
-                self.ui.checkShowLanguageSelector.setCheckState(Qt.CheckState.Checked)
-        except:
-            pass
-
-        try:
-            if self.config.getint('display', 'keyboard') == 1:
-                self.ui.checkShowKeyboard.setCheckState(Qt.CheckState.Checked)
-        except:
-            pass
-
-        try:
-            background = self.config.get('display', 'bg')
+        background = self.tryGetConfigString('display', 'bg')
+        if background:
             self.ui.editBackground.setText(background)
             if os.path.exists(background):
                 self._setGraphicsViewImage(background)
-        except Exception, ex:
-            print(ex)
 
         greeters = findGreeters()
         self.ui.comboGreeter.setModel(self._createStandardItemModel(greeters))
-        try:
-            self.ui.comboGreeter.setCurrentIndex(self._findCurrentIndex(greeters,
-                1, self.config.get('base', 'greeter')))
-        except Exception, ex:
-            print(ex)
+        greeter = self.tryGetConfigString('base', 'greeter')
+        self.ui.comboGreeter.setCurrentIndex(self._findCurrentIndex(greeters,
+            1, greeter))
 
         gtkThemes = findGtkThemes()
-        self.ui.comboGtkTheme.setModel(self._createStandardItemModel(gtkThemes))
-        try:
-            self.ui.comboGtkTheme.setCurrentIndex(self._findCurrentIndex(gtkThemes,
-                0, self.config.get('display', 'gtk_theme')))
-        except Exception, ex:
-            print(ex)
+        self.ui.comboGtkTheme.setModel(self._createStandardItemModel(
+            gtkThemes))
+        gtkTheme = self.tryGetConfigString('display', 'gtk_theme')
+        self.ui.comboGtkTheme.setCurrentIndex(self._findCurrentIndex(gtkThemes,
+            0, gtkTheme))
 
         themes = findLXDMThemes()
         self.ui.comboTheme.setModel(self._createStandardItemModel(themes))
-        try:
-            self.ui.comboTheme.setCurrentIndex(self._findCurrentIndex(themes,
-                0, self.config.get('display', 'theme')))
-        except Exception, ex:
-            print(ex)
+        theme = self.tryGetConfigString('display', 'theme')
+        self.ui.comboTheme.setCurrentIndex(self._findCurrentIndex(themes,
+            0, theme))
 
     def makeActionSaveEnabled(self):
         self.ui.action_Save.setEnabled(True)
