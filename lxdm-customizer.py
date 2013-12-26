@@ -8,7 +8,7 @@ try:
     from PySide.QtGui import *
     from PySide.QtCore import *
 except ImportError:
-    print("You need to install PySide.")
+    print(QObject.tr("You need to install PySide."))
 from lxdm_customizer_lib.ui_customizer import Ui_MainWindow
 from lxdm_customizer_lib.lxdmconfig import LXDMConfig
 from lxdm_customizer_lib.source import *
@@ -16,14 +16,16 @@ from lxdm_customizer_lib.util import isDisplayManagerLXDM
 
 
 class MainWindow(QMainWindow):
+    title = "LXDM-customizer"
+
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
         if not isDisplayManagerLXDM():
-            QMessageBox.information(None, "LXDM-customizer",
-                "LXDM is not installed.  LXDM-customizer won't work.")
+            QMessageBox.information(None, self.title,
+                self.tr("LXDM is not installed.  LXDM-customizer won't work."))
             sys.exit(-1)
         self.config = LXDMConfig()
 
@@ -53,8 +55,8 @@ class MainWindow(QMainWindow):
         self.ui.action_Save.setEnabled(False)
 
     def showAbout(self):
-        QMessageBox.about(self, "LXDM Customizer",
-                          "LXDM Customizer is a tool for customizer LXDM.")
+        QMessageBox.about(self, self.title,
+            self.tr("LXDM Customizer is a tool for customizer LXDM."))
 
     def onSave(self):
         if self.ui.checkNumlock.checkState() == Qt.CheckState.Checked:
@@ -99,7 +101,7 @@ class MainWindow(QMainWindow):
 
     def browseBackground(self):
         result = QFileDialog.getOpenFileName(self,
-           "Select image file as background",
+           self.tr("Select image file as background"),
            "/usr/share/backgrounds",
            "Image files (*.png *.jpg *.jpeg)")
         fn, t = result
@@ -180,8 +182,8 @@ class MainWindow(QMainWindow):
 
     def onClose(self):
         if self.isDirty:
-            button = QMessageBox.question(self, "LXDM-customizer",
-                "You had changed settings, are you sure to exit?",
+            button = QMessageBox.question(self, self.title,
+                self.tr("You had changed settings, are you sure to exit?"),
                 QMessageBox.Yes | QMessageBox.No,
                 QMessageBox.NoButton)
             if not button == QMessageBox.Yes:
@@ -210,6 +212,7 @@ class MainWindow(QMainWindow):
 
 
 def main():
+    translator = QTranslator()
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
