@@ -213,7 +213,11 @@ class MainWindow(QMainWindow):
 
 def main():
     translator = QTranslator()
+    qmFileName = "i18n/{0}".format(QLocale.system().name())
+    print(qmFileName)
+    translator.load(qmFileName)
     app = QApplication(sys.argv)
+    app.installTranslator(translator)
     window = MainWindow()
     window.show()
     app.exec_()
