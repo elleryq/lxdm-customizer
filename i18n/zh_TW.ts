@@ -23,6 +23,91 @@
         <source>You had changed settings, are you sure to exit?</source>
         <translation>你已經更動了設定，確定要離開?</translation>
     </message>
+    <message>
+        <location filename="lxdm_customizer_lib/ui_customizer.py" line="115"/>
+        <source>LXDM Customizer</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="lxdm_customizer_lib/ui_customizer.py" line="116"/>
+        <source>Greeter</source>
+        <translation>歡迎使用者的樣式</translation>
+    </message>
+    <message>
+        <location filename="lxdm_customizer_lib/ui_customizer.py" line="117"/>
+        <source>Numlock</source>
+        <translation>NumLock</translation>
+    </message>
+    <message>
+        <location filename="lxdm_customizer_lib/ui_customizer.py" line="118"/>
+        <source>Base</source>
+        <translation>基本</translation>
+    </message>
+    <message>
+        <location filename="lxdm_customizer_lib/ui_customizer.py" line="119"/>
+        <source>GTK Theme</source>
+        <translation>GTK 佈景主題</translation>
+    </message>
+    <message>
+        <location filename="lxdm_customizer_lib/ui_customizer.py" line="120"/>
+        <source>Show bottom panel</source>
+        <translation>顯示底部面板</translation>
+    </message>
+    <message>
+        <location filename="lxdm_customizer_lib/ui_customizer.py" line="121"/>
+        <source>Show language selector</source>
+        <translation>顯示選擇語言</translation>
+    </message>
+    <message>
+        <location filename="lxdm_customizer_lib/ui_customizer.py" line="122"/>
+        <source>Show keyboard</source>
+        <translation>顯示鍵盤</translation>
+    </message>
+    <message>
+        <location filename="lxdm_customizer_lib/ui_customizer.py" line="123"/>
+        <source>Theme</source>
+        <translation>佈景主題</translation>
+    </message>
+    <message>
+        <location filename="lxdm_customizer_lib/ui_customizer.py" line="124"/>
+        <source>Background</source>
+        <translation>背景圖片</translation>
+    </message>
+    <message>
+        <location filename="lxdm_customizer_lib/ui_customizer.py" line="125"/>
+        <source>Browse</source>
+        <translation>瀏覽</translation>
+    </message>
+    <message>
+        <location filename="lxdm_customizer_lib/ui_customizer.py" line="126"/>
+        <source>Display</source>
+        <translation>顯示</translation>
+    </message>
+    <message>
+        <location filename="lxdm_customizer_lib/ui_customizer.py" line="127"/>
+        <source>&amp;File</source>
+        <translation>檔案 (&amp;F)</translation>
+    </message>
+    <message>
+        <location filename="lxdm_customizer_lib/ui_customizer.py" line="128"/>
+        <source>&amp;Help</source>
+        <translation>輔助說明 (&amp;H)</translation>
+    </message>
+    <message>
+        <location filename="lxdm_customizer_lib/ui_customizer.py" line="129"/>
+        <source>&amp;About</source>
+        <translation>關於 (&amp;A)</translation>
+    </message>
+    <message>
+        <location filename="lxdm_customizer_lib/ui_customizer.py" line="130"/>
+        <source>&amp;Save</source>
+        <translation>儲存 (&amp;S)</translation>
+    </message>
+    <message>
+        <location filename="lxdm_customizer_lib/ui_customizer.py" line="131"/>
+        <source>E&amp;xit</source>
+        <translation>離開 (&amp;x)</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
