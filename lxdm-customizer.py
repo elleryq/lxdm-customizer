@@ -213,9 +213,12 @@ class MainWindow(QMainWindow):
 
 def main():
     translator = QTranslator()
-    qmFileName = "i18n/{0}".format(QLocale.system().name())
-    print(qmFileName)
-    translator.load(qmFileName)
+    translation_path = os.path.join(sys.prefix, 'share', 'lxdm-customizer',
+                                    'translations')
+    if translator.load(QLocale.system(), "", "", translation_path):
+        pass
+    elif translator.load(QLocale.system(), "", "", "i18n"):
+        pass
     app = QApplication(sys.argv)
     app.installTranslator(translator)
     window = MainWindow()
