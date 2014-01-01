@@ -1,5 +1,4 @@
 import os
-import sys
 from subprocess import call
 from glob import glob
 from distutils.core import setup
@@ -13,8 +12,9 @@ if os.path.exists(mfst):
 # Compile translations.
 call(['lrelease', 'lxdm-customizer.pro'])
 
-#DATA_FILES = ['translations', glob('i18n/*.qm')]
-DATA_FILES = []
+translation_path = os.path.join('share', 'lxdm-customizer', 'translations')
+DATA_FILES = [(translation_path,
+              glob('i18n/*.qm')),]
 
 setup(name='lxdm-customizer',
       version='1.0',
@@ -27,5 +27,3 @@ setup(name='lxdm-customizer',
       license="GPL2",
       data_files=DATA_FILES,
       )
-
-print(sys.prefix)
