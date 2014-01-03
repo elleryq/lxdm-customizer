@@ -44,5 +44,6 @@ setup(name='lxdm-customizer',
           ('share/applications', ['data/lxdm-customizer.desktop'])],
       cmdclass={
           'build': BuildData,
-          'install_data': InstallData}
+          'install_data': InstallData},
+      install_requires=['PySide']
       )
