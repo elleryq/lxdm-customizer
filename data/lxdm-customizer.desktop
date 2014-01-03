@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=LXDM customizer
+TryExec=/usr/bin/lxdm-customizer.py
+Exec=/usr/bin/lxdm-customizer.py
+Type=Application
+Categories=LXDE;QT;Utility;
+StartupNotify=true
+Terminal=false
+
+Name[zh_TW]=LXDM 客製化工具
+GenericName=LXDM customizer
+GenericName[zh_TW]=LXDM 客製化工具
