@@ -48,6 +48,12 @@ setup(name='lxdm-customizer',
       install_requires=['PySide'],
       classifiers=[
           'Programming Language :: Python',
-          'Programming Language :: Python :: 3'
+          'Programming Language :: Python :: 3',
+          'Environment :: X11 Applications',
+          'Intended Audience :: End Users/Desktop',
+          'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
+          'Operating System :: POSIX :: Linux',
+          'Topic :: Desktop Environment',
+          'Topic :: System',
       ],
       )
