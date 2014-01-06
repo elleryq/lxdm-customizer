@@ -32,7 +32,7 @@ class InstallData(install_data):
 
 
 setup(name='lxdm-customizer',
-      version='1.0',
+      version='1.1',
       description='LXDM customization tool',
       author='Yan-ren Tsai',
       author_email='elleryq@gmail.com',
@@ -45,5 +45,9 @@ setup(name='lxdm-customizer',
       cmdclass={
           'build': BuildData,
           'install_data': InstallData},
-      install_requires=['PySide']
+      install_requires=['PySide'],
+      classifiers=[
+          'Programming Language :: Python',
+          'Programming Language :: Python :: 3'
+      ],
       )
