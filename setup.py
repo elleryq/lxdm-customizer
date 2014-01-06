@@ -2,6 +2,11 @@ import os
 from subprocess import call
 from glob import glob
 from distutils.core import setup
+
+try:  # Python 3
+  from distutils.command.build_py import build_py_2to3 as build_py
+except ImportError:  # Python 2
+  from distutils.command.build_py import build_py
 from distutils.command.build import build
 from distutils.command.install_data import install_data
 
@@ -43,6 +48,7 @@ setup(name='lxdm-customizer',
       data_files=[
           ('share/applications', ['data/lxdm-customizer.desktop'])],
       cmdclass={
+          'build_py': build_py,
           'build': BuildData,
           'install_data': InstallData},
       install_requires=['PySide'],

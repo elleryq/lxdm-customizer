@@ -1,5 +1,8 @@
 import os
-from configparser import SafeConfigParser
+try:
+    from configparser import SafeConfigParser
+except:
+    from ConfigParser import SafeConfigParser
 import tempfile
 from .util import sudo
 
