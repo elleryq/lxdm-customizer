@@ -2,12 +2,17 @@
 
 lxdm-customizer is a tool for customizing LXDM.
 
+# Requirement
+ * Python 3
+ * PySide
+
 # Installation
 ## Ubuntu/Debian
 You can install python-stdeb, this package can help you to get debian package.
 ```
 python setup.py --command-packages=stdeb.command bdist_deb
 ```
+
 After command is executed, you can find the debian package in deb_dist/
 
 ## Fedora/RedHat
