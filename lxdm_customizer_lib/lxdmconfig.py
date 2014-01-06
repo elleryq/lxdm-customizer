@@ -1,7 +1,7 @@
 import os
-from ConfigParser import SafeConfigParser
+from configparser import SafeConfigParser
 import tempfile
-from util import sudo
+from .util import sudo
 
 
 LXDM_CONF = "/etc/lxdm/default.conf"
@@ -12,7 +12,7 @@ class LXDMConfig(object):
         try:
             self.parser = SafeConfigParser()
             self.parser.read(LXDM_CONF)
-        except Exception, ex:
+        except Exception as ex:
             raise ex
 
     def __getattr__(self, attr):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """LXDM customizer"""
-from __future__ import print_function
+
 import sys
 import os
 try:
@@ -21,6 +21,7 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.ui = Ui_MainWindow()
+        self.isDirty = False
         self.ui.setupUi(self)
 
         if not isDisplayManagerLXDM():
